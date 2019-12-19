@@ -1,0 +1,10 @@
+#common
+
+#log and template
+
+#IntelliJ
+.idea/
+/*.iml
+
+#file system on mac
+.DS_Store
