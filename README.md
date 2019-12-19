@@ -1,11 +1,13 @@
-#USAGE
+# USAGE
+
 > This is a simple project which does loading JSON data from file, then helps to search data by existed fields.
 
 - Change consts of ORGANIZATION_PATH, TICKET_PATH and USER_PATH with the correct path to JSON file
 - Build command: `go build -o ./challenge /path/to/challenge.go`
 - Run binary file: `./challenge`
 
-#CODE CHALLENGE
+# CODE CHALLENGE
+
 Using the provided data (tickets.json and users.json and organization.json)
 Write a simple command line application to search the data and return the results
 in a human readable format.
@@ -25,7 +27,8 @@ description is empty.
 * Search can get pretty complicated pretty easily, we just want to see that you
 can code a basic search application.
 
-#EVALUATION CRITERIA (IMPORTANT)
+# EVALUATION CRITERIA (IMPORTANT)
+
 We will look at your project and assess it for:
 1. Extensibility - separation of concerns.
 2. Simplicity - aim for the simplest solution that gets the job done whilst
