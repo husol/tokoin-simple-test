@@ -2,9 +2,14 @@
 
 > This is a simple project which does loading JSON data from file, then helps to search data by existed fields.
 
-- Change consts of ORGANIZATION_PATH, TICKET_PATH and USER_PATH with the correct path to JSON file
-- Build command: `go build -o ./challenge /path/to/challenge.go`
-- Run binary file: `./challenge`
+- Build command:
+
+`go build -o ./challenge /path/to/challenge.go`
+
+- Edit `config/default.toml` with correct paths.
+- Put config directory in somewhere, then specify its path in running command:
+
+`./challenge -conf=/path/to/config/default.toml`
 
 # CODE CHALLENGE
 

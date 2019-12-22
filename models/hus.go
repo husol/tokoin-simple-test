@@ -6,41 +6,68 @@ import (
     "husol.org/vome_kids/app/models"
     "reflect"
     "strconv"
+    "strings"
 )
 
 type Hus struct {
 
 }
 
-func (hus *Hus) GetField(v interface{}, field string) string {
-    r := reflect.ValueOf(v)
-    f := reflect.Indirect(r).FieldByName(field)
+func (hus *Hus) PrintFields(obj interface{}) {
+    val := reflect.ValueOf(obj)
+    for i := 0; i < val.Type().NumField(); i++ {
+        fmt.Println(val.Type().Field(i).Tag.Get("json"))
+    }
+}
 
+func (hus *Hus) GetField(s interface{}, tag string) []string {
+    //Get field name from json tag
+    rt := reflect.TypeOf(s)
+    if rt.Kind() != reflect.Struct {
+        panic("Not struct")
+    }
+    name := ""
+    for i := 0; i < rt.NumField(); i++ {
+        f := rt.Field(i)
+        v := strings.Split(f.Tag.Get("json"), ",")[0]
+        if v == tag {
+            name = f.Name
+            break
+        }
+    }
+
+    var result []string
+
+    //Get value from field name
+    rv := reflect.ValueOf(s)
+    f := reflect.Indirect(rv).FieldByName(name)
     if !f.IsValid() {
-        return ""
+        return result
     }
     fieldValue := f.Interface()
 
     switch v := fieldValue.(type) {
     case int64:
-        return strconv.FormatInt(v, 10)
+        return append(result, strconv.FormatInt(v, 10))
     case int32:
-        return strconv.FormatInt(int64(v), 10)
+        return append(result, strconv.FormatInt(int64(v), 10))
     case int:
-        return strconv.FormatInt(int64(v), 10)
+        return append(result, strconv.FormatInt(int64(v), 10))
     case uint:
-        return strconv.FormatUint(uint64(v), 10)
+        return append(result, strconv.FormatUint(uint64(v), 10))
     case string:
+        return append(result, v)
+    case []string:
         return v
     case bool:
         if v {
-            return "true"
+            return append(result, "true")
         }
-        return "false"
+        return append(result, "false")
     case models.HusTime:
-        return v.ToTime().String()
+        return append(result, v.ToTime().String())
     default:
-        return ""
+        return result
     }
 }
 
